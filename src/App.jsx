@@ -92,7 +92,7 @@ export default function App() {
       />
 
       {/* Main Content Area (Offset by Sidebar on Desktop) */}
-      <div className="flex-1 flex flex-col min-w-0 lg:pl-72 transition-all duration-300">
+      <div className="flex-1 flex flex-col min-w-0 lg:pl-72 transition-all duration-300 app-main">
         
         {/* Top Header Bar (Mobile & Quick Controls) */}
         <header className="sticky top-0 z-30 bg-slate-900 text-white shadow-md no-print px-4 py-2.5 flex items-center justify-between">
@@ -160,7 +160,7 @@ export default function App() {
               transformOrigin: 'top center',
               transition: 'transform 0.15s ease-out'
             }}
-            className="w-full flex flex-col items-center"
+            className="w-full flex flex-col items-center document-canvas"
           >
             {renderCurrentTab()}
           </div>

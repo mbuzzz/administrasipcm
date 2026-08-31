@@ -133,6 +133,26 @@
     print-color-adjust: exact !important;
   }
 
+  /* Reset Zoom Scale + Hilangkan Offset Sidebar saat Print */
+  .document-canvas {
+    transform: none !important;
+    transform-origin: top left !important;
+    transition: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .app-main {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  main {
+    display: block !important;
+    overflow: visible !important;
+    padding: 0 !important;
+  }
+
   /* Elemen non-cetak disembunyikan sepenuhnya */
   .no-print,
   aside,
@@ -220,9 +240,6 @@
   }
 
   .avoid-break-inside,
-  table,
-  tr,
-  tbody,
   .signature-block,
   .juknis-card,
   .kop-surat-container {
@@ -231,16 +248,27 @@
     break-inside: avoid-page !important;
   }
 
+  /* Tabel panjang boleh terpotong antar halaman agar baris tidak hilang */
+  table {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  tbody {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+
+  tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
   thead {
     display: table-header-group !important;
   }
   
   tfoot {
     display: table-footer-group !important;
-  }
-
-  tr {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
   }
 }
