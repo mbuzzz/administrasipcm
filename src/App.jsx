@@ -9,6 +9,7 @@ import PenutupTab from './components/PenutupTab';
 import SuratMenyuratTab from './components/SuratMenyuratTab';
 import LampiranJuknisTab from './components/LampiranJuknisTab';
 import FormPenilaianTab from './components/FormPenilaianTab';
+import DaftarHadirTab from './components/DaftarHadirTab';
 import ProposalPrintView from './components/ProposalPrintView';
 import { proposalData } from './data/proposalData';
 import { 
@@ -54,6 +55,7 @@ export default function App() {
       case 'surat_menyurat': return 'Modul Generator Surat Resmi';
       case 'lampiran_juknis': return 'Lampiran Petunjuk Teknis Per Lomba (A4)';
       case 'form_penilaian': return 'Formulir Penilaian Dewan Juri (A4)';
+      case 'daftar_hadir': return 'Daftar Hadir Resmi (Panitia, Juri, 50 Peserta)';
       case 'cetak_full': return 'Dokumen Proposal Lengkap (A4)';
       default: return 'Proposal MUHIBBIN 2026';
     }
@@ -79,6 +81,8 @@ export default function App() {
         return <LampiranJuknisTab setActiveTab={setActiveTab} />;
       case 'form_penilaian':
         return <FormPenilaianTab setActiveTab={setActiveTab} />;
+      case 'daftar_hadir':
+        return <DaftarHadirTab setActiveTab={setActiveTab} />;
       case 'cetak_full':
         return <ProposalPrintView setActiveTab={setActiveTab} />;
       default:

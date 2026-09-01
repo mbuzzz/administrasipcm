@@ -19,7 +19,8 @@ import {
   Download,
   Trophy,
   FileText,
-  ClipboardList
+  ClipboardList,
+  UserCheck
 } from 'lucide-react';
 import { proposalData } from '../data/proposalData';
 
@@ -99,11 +100,18 @@ export default function Sidebar({
       nomor: '09'
     },
     { 
+      id: 'daftar_hadir', 
+      label: 'Daftar Hadir Resmi (TTD)', 
+      sublabel: 'Panitia, Juri & 50 Peserta', 
+      icon: UserCheck,
+      nomor: '10'
+    },
+    { 
       id: 'cetak_full', 
       label: 'Cetak Proposal Full (A4)', 
       sublabel: 'Dokumen Utuh Siap PDF', 
       icon: Printer,
-      nomor: '10',
+      nomor: '11',
       highlight: true
     },
   ];
