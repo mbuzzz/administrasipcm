@@ -15,7 +15,7 @@ import { proposalData } from '../data/proposalData';
 export default function SuratMenyuratTab() {
   const { identitas, pengesahan, cabangLomba } = proposalData;
 
-  // 4 Jenis Template Surat Resmi Ringkas & Padat Sesuai Kebutuhan 1 Lembar A4
+  // 7 Jenis Template Surat Resmi Ringkas & Padat Sesuai Kebutuhan 1 Lembar A4
   const suratTemplates = [
     {
       id: 'sponsorship',
@@ -35,8 +35,25 @@ Tema          : "${identitas.tema}"
 Maka kami memohon kesediaan Bapak/Ibu/Pimpinan untuk berkenan memberikan bantuan dana/sponsorship demi kelancaran dan suksesnya kegiatan dakwah edukatif ini (proposal kegiatan dan RAB terlampir).`
     },
     {
+      id: 'bantuan_mamiri',
+      title: '2. Permohonan Bantuan Konsumsi MAMIRI',
+      kodeNomor: '3.2/06/2026',
+      hal: 'Permohonan Bantuan Konsumsi MAMIRI',
+      lampiran: '1 (Satu) Berkas Proposal',
+      tujuan: 'Bpk/Ibu Pimpinan Ranting Muhammadiyah & \'Aisyiyah Tampo',
+      tempatTujuan: 'Di Tampo',
+      isiKhusus: `Sehubungan dengan pelaksanaan kegiatan MUHIBBIN (Musabaqah li Thulab wa Tholibin) dalam rangka Maulid Nabi Muhammad SAW 1448 H / 2026 M yang diselenggarakan secara GRATIS bagi santri/pelajar se-Kecamatan Cluring pada:
+
+Hari, Tanggal : ${identitas.waktu}
+Waktu         : Pukul ${identitas.jam} (Rundown mulai 08.30 WIB)
+Tempat        : ${identitas.lokasiUtama}
+Tema          : "${identitas.tema}"
+
+Maka kami memohon kepada Bapak/Ibu/Pimpinan untuk berkenan memberikan bantuan Konsumsi Mamiri (200 kotak) demi kelancaran dan suksesnya kegiatan dakwah edukatif ini.`
+    },
+    {
       id: 'juri',
-      title: '2. Permohonan Menjadi Juri (Kode 1.2)',
+      title: '3. Permohonan Menjadi Juri (Kode 1.2)',
       kodeNomor: '1.2/06/2026',
       hal: 'Permohonan Menjadi Dewan Juri',
       lampiran: '1 (Satu) Lembar Juknis Lomba',
@@ -54,7 +71,7 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
     },
     {
       id: 'izin_tempat',
-      title: '3. Permohonan Peminjaman Tempat',
+      title: '4. Permohonan Peminjaman Tempat',
       kodeNomor: '1.7/06/2026',
       hal: 'Permohonan Peminjaman Tempat & Fasilitas',
       lampiran: '1 (Satu) Berkas Proposal',
@@ -70,7 +87,7 @@ Kami memohon izin dan perkenan Bapak/Ibu untuk meminjam dan menggunakan fasilita
     },
     {
       id: 'undangan_peserta',
-      title: '4. Surat Undangan Peserta',
+      title: '5. Surat Undangan Peserta',
       kodeNomor: '1.1/06/2026',
       hal: 'Undangan & Delegasi Peserta Lomba MUHIBBIN 2026',
       lampiran: '1 (Satu) Berkas Juknis & Formulir',
@@ -85,7 +102,7 @@ Pendaftaran   : GRATIS (Tanpa Biaya Pendaftaran)`
     },
     {
       id: 'undangan_pcm',
-      title: '5. Undangan Pembukaan (PCM Cluring)',
+      title: '6. Undangan Pembukaan (PCM Cluring)',
       kodeNomor: '1.0/06/2026',
       hal: 'Permohonan Menghadiri & Memberikan Sambutan Pembukaan',
       lampiran: '1 (Satu) Berkas Proposal',
@@ -102,7 +119,7 @@ Maka kami memohon dengan hormat kesediaan Bapak Ketua beserta segenap jajaran Pi
     },
     {
       id: 'undangan_pca',
-      title: '6. Undangan Pembukaan (PCA Cluring)',
+      title: '7. Undangan Pembukaan (PCA Cluring)',
       kodeNomor: '1.0/06/2026',
       hal: 'Undangan Menghadiri Pembukaan MUHIBBIN 2026',
       lampiran: '1 (Satu) Berkas Proposal',
@@ -363,24 +380,24 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
           </div>
         </div>
 
-        {/* Right Side: LIVE A4 PRINT-READY SHEET (PAS 1 LEMBAR A4 - 100% TIMES NEW ROMAN - 12PT) */}
+        {/* Right Side: LIVE A4 PRINT-READY SHEET (PAS 1 LEMBAR A4 - 100% TIMES NEW ROMAN) */}
         <div className="lg:col-span-8 flex justify-center w-full">
-          <div className="surat-a4-sheet font-tnr text-black bg-white text-[12pt] leading-normal select-text relative shadow-lg border border-slate-300 avoid-break-inside">
+          <div className="surat-a4-sheet font-tnr text-black bg-white text-[11.5pt] print:text-[11pt] leading-normal select-text relative shadow-lg border border-slate-300 avoid-break-inside">
             
             {/* 1. KOP SURAT RESMI (16pt Bold & Alamat 9pt Italic) */}
-            <KopSurat compact={false} />
+            <KopSurat compact={true} />
 
             {/* 2. LAFAZ ARAB WAJIB DI BAWAH KOP */}
-            <div className="text-center my-2">
-              <p className="font-arabic text-xl sm:text-2xl text-black leading-none">
+            <div className="text-center my-1.5 print:my-1">
+              <p className="font-arabic text-xl sm:text-2xl print:text-xl text-black leading-none">
                 بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
               </p>
             </div>
 
-            {/* 3. BAGIAN NOMOR, LAMPIRAN, HAL & TANGGAL SURAT (12PT) */}
-            <div className="flex justify-between items-start my-2 text-[12pt]">
+            {/* 3. BAGIAN NOMOR, LAMPIRAN, HAL & TANGGAL SURAT (11.5PT) */}
+            <div className="flex justify-between items-start my-1.5 print:my-1 text-[11.5pt] print:text-[11pt]">
               {/* Kolom Kiri: Nomor, Lampiran, Hal */}
-              <table className="border-collapse border-none text-left text-[12pt]">
+              <table className="border-collapse border-none text-left text-[11.5pt] print:text-[11pt]">
                 <tbody>
                   <tr>
                     <td className="pr-2 py-0.5 font-normal align-top whitespace-nowrap">Nomor</td>
@@ -401,7 +418,7 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
               </table>
 
               {/* Kolom Kanan: Tanggal Surat Baku (Masehi di atas, Garis Pembatas, Hijriah di bawah, Cluring di samping kiri) */}
-              <div className="flex items-center justify-end text-[12pt] text-right">
+              <div className="flex items-center justify-end text-[11.5pt] print:text-[11pt] text-right">
                 <span className="mr-1.5 whitespace-nowrap font-normal">Cluring,</span>
                 <div className="inline-flex flex-col items-center text-center">
                   <span className="leading-tight px-1 font-normal">{formData.tanggalMasehi || '30 Agustus 2026 M'}</span>
@@ -411,28 +428,28 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
               </div>
             </div>
 
-            {/* 4. KEPADA YTH / TUJUAN SURAT (12PT) */}
-            <div className="my-2.5 text-[12pt]">
+            {/* 4. KEPADA YTH / TUJUAN SURAT (11.5PT) */}
+            <div className="my-2 print:my-1.5 text-[11.5pt] print:text-[11pt] leading-snug">
               <p>Kepada Yth.</p>
               <p className="font-bold">{formData.tujuanSurat}</p>
               <p>{formData.tempatTujuan}</p>
             </div>
 
             {/* 5. SALAM PEMBUKA ARAB WAJIB */}
-            <div className="my-2 text-left">
-              <p className="font-arabic text-lg sm:text-xl text-black">
+            <div className="my-1.5 print:my-1 text-left">
+              <p className="font-arabic text-lg sm:text-xl print:text-lg text-black">
                 السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ
               </p>
             </div>
 
-            {/* 6. KALIMAT PEMBUKA & ISI SURAT BAKU RINGKAS (12PT) */}
-            <div className="text-justify text-[12pt] space-y-2 leading-relaxed">
+            {/* 6. KALIMAT PEMBUKA & ISI SURAT BAKU RINGKAS (11.5PT) */}
+            <div className="text-justify text-[11.5pt] print:text-[11pt] space-y-1.5 print:space-y-1 leading-normal print:leading-snug">
               <p className="indent-8">
                 Puji syukur kita panjatkan kehadirat Allah SWT yang telah melimpahkan taufiq dan hidayah-Nya. Shalawat serta salam semoga senantiasa tercurah kepada junjungan kita Nabi Muhammad SAW.
               </p>
 
               {/* Paragraf Inti Ringkas & Padat */}
-              <div className="whitespace-pre-line text-justify leading-relaxed">
+              <div className="whitespace-pre-line text-justify leading-normal print:leading-snug">
                 {formData.isiSurat}
               </div>
 
@@ -441,34 +458,34 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
               </p>
             </div>
 
-            {/* 7. SEMBOYAN PENUTUP WAJIB (FASTABIQUL KHAIRÂT huruf miring) (12PT) */}
-            <div className="my-2 text-left">
-              <p className="font-bold italic text-[12pt]">
+            {/* 7. SEMBOYAN PENUTUP WAJIB (FASTABIQUL KHAIRÂT huruf miring) */}
+            <div className="my-1.5 print:my-1 text-left">
+              <p className="font-bold italic text-[11.5pt] print:text-[11pt]">
                 FASTABIQUL KHAIRÂT.
               </p>
             </div>
 
             {/* 8. SALAM PENUTUP ARAB WAJIB */}
-            <div className="my-1.5 text-left">
-              <p className="font-arabic text-lg sm:text-xl text-black">
+            <div className="my-1 print:my-0.5 text-left">
+              <p className="font-arabic text-lg sm:text-xl print:text-lg text-black">
                 وَالسَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ
               </p>
             </div>
 
-            {/* 9. TANDA TANGAN RAPI & SEIMBANG (12PT) - Pas 1 Lembar */}
-            <div className="mt-3 pt-1 avoid-break-inside text-[12pt]">
+            {/* 9. TANDA TANGAN RAPI & SEIMBANG (11.5PT) - Pas 1 Lembar Tanpa Terpotong */}
+            <div className="mt-2.5 pt-1 avoid-break-inside text-[11.5pt] print:text-[11pt] surat-ttd-section">
               {/* Panitia Pelaksana */}
-              <div className="text-center mb-1 font-bold uppercase tracking-wider text-[11pt]">
+              <div className="text-center mb-0.5 font-bold uppercase tracking-wider text-[10.5pt] print:text-[10pt]">
                 PANITIA PELAKSANA MUHIBBIN 2026
               </div>
 
-              <table className="w-full border-none border-collapse text-center my-1 text-[12pt]">
+              <table className="w-full border-none border-collapse text-center my-0.5 text-[11.5pt] print:text-[11pt]">
                 <tbody>
                   <tr>
-                    <td className="w-1/2 align-top pb-10 font-normal">
+                    <td className="w-1/2 align-top pb-8 print:pb-7 font-normal">
                       Ketua Panitia,
                     </td>
-                    <td className="w-1/2 align-top pb-10 font-normal">
+                    <td className="w-1/2 align-top pb-8 print:pb-7 font-normal">
                       Sekretaris Panitia,
                     </td>
                   </tr>
@@ -484,9 +501,9 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
               </table>
 
               {/* Mengetahui PCPM Cluring (Hanya Ketua) */}
-              <div className="mt-3 pt-0.5 text-center text-[12pt]">
-                <p className="text-[10.5pt] font-normal">Mengetahui,</p>
-                <div className="pt-1 pb-10 text-center font-normal text-[11pt]">
+              <div className="mt-2 pt-0.5 text-center text-[11.5pt] print:text-[11pt]">
+                <p className="text-[10pt] print:text-[9.5pt] font-normal">Mengetahui,</p>
+                <div className="pt-0.5 pb-8 print:pb-7 text-center font-normal text-[10.5pt] print:text-[10pt]">
                   Ketua PCPM Cluring,
                 </div>
                 <div className="text-center">

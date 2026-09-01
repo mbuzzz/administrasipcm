@@ -200,7 +200,23 @@
   }
 
   /* Kertas A4 saat cetak: 100% lebar kertas printer tanpa border luar/bayangan/bg */
-  .a4-sheet, 
+  .a4-sheet {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-width: 0 !important;
+    outline: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    display: block !important;
+  }
+
+  /* Format Khusus Surat Resmi: Pas 1 Halaman A4 Utuh dengan Tanda Tangan */
   .surat-a4-sheet {
     width: 100% !important;
     max-width: 100% !important;
@@ -215,6 +231,17 @@
     background: transparent !important;
     background-color: transparent !important;
     display: block !important;
+    font-size: 11pt !important;
+    line-height: 1.35 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
+  .surat-a4-sheet .kop-surat-wrapper {
+    margin-bottom: 2mm !important;
+    padding-bottom: 1.5mm !important;
   }
 
   /* Hilangkan efek grid/flex pada kontainer cetak */
@@ -241,8 +268,10 @@
 
   .avoid-break-inside,
   .signature-block,
+  .surat-ttd-section,
   .juknis-card,
-  .kop-surat-container {
+  .kop-surat-container,
+  .kop-surat-wrapper {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     break-inside: avoid-page !important;
