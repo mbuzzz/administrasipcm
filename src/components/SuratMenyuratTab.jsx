@@ -489,14 +489,14 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
             <KopSurat compact={true} />
 
             {/* 2. LAFAZ ARAB WAJIB DI BAWAH KOP */}
-            <div className="text-center my-1.5 print:my-1">
+            <div className="text-center my-3 print:my-2.5">
               <p className="font-arabic text-xl sm:text-2xl print:text-xl text-black leading-none">
                 بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم
               </p>
             </div>
 
             {/* 3. BAGIAN NOMOR, LAMPIRAN, HAL & TANGGAL SURAT (11.5PT) */}
-            <div className="flex justify-between items-start my-1.5 print:my-1 text-[11.5pt] print:text-[11pt]">
+            <div className="flex justify-between items-start my-2.5 print:my-2 text-[11.5pt] print:text-[11pt]">
               {/* Kolom Kiri: Nomor, Lampiran, Hal */}
               <table className="border-collapse border-none text-left text-[11.5pt] print:text-[11pt]">
                 <tbody>
@@ -529,22 +529,22 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
               </div>
             </div>
 
-            {/* 4. KEPADA YTH / TUJUAN SURAT (11.5PT) */}
-            <div className="my-2 print:my-1.5 text-[11.5pt] print:text-[11pt] leading-snug">
+            {/* 4. KEPADA YTH / TUJUAN SURAT (11.5PT) - Diberi Jarak Lebih Lega */}
+            <div className="my-3.5 print:my-3 text-[11.5pt] print:text-[11pt] leading-normal">
               <p>Kepada Yth.</p>
               <p className="font-bold">{formData.tujuanSurat}</p>
               <p>{formData.tempatTujuan}</p>
             </div>
 
-            {/* 5. SALAM PEMBUKA ARAB WAJIB */}
-            <div className="my-1.5 print:my-1 text-left">
+            {/* 5. SALAM PEMBUKA ARAB WAJIB - Diberi Jarak Lebih Lega */}
+            <div className="my-3 print:my-2.5 text-left">
               <p className="font-arabic text-lg sm:text-xl print:text-lg text-black">
                 السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ
               </p>
             </div>
 
             {/* 6. KALIMAT PEMBUKA & ISI SURAT BAKU RINGKAS (11.5PT) */}
-            <div className="text-justify text-[11.5pt] print:text-[11pt] space-y-1.5 print:space-y-1 leading-normal print:leading-snug">
+            <div className="text-justify text-[11.5pt] print:text-[11pt] space-y-2 print:space-y-1.5 leading-normal print:leading-snug">
               <p className="indent-8">
                 Puji syukur kita panjatkan kehadirat Allah SWT yang telah melimpahkan taufiq dan hidayah-Nya. Shalawat serta salam semoga senantiasa tercurah kepada junjungan kita Nabi Muhammad SAW.
               </p>
@@ -560,33 +560,33 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
             </div>
 
             {/* 7. SEMBOYAN PENUTUP WAJIB (FASTABIQUL KHAIRÂT huruf miring) */}
-            <div className="my-1.5 print:my-1 text-left">
+            <div className="my-2.5 print:my-2 text-left">
               <p className="font-bold italic text-[11.5pt] print:text-[11pt]">
                 FASTABIQUL KHAIRÂT.
               </p>
             </div>
 
-            {/* 8. SALAM PENUTUP ARAB WAJIB */}
-            <div className="my-1 print:my-0.5 text-left">
+            {/* 8. SALAM PENUTUP ARAB WAJIB - Diberi Jarak Nyaman */}
+            <div className="my-2.5 print:my-2 text-left">
               <p className="font-arabic text-lg sm:text-xl print:text-lg text-black">
                 وَالسَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ
               </p>
             </div>
 
-            {/* 9. TANDA TANGAN RAPI & SEIMBANG (11.5PT) - Pas 1 Lembar Tanpa Terpotong */}
-            <div className="mt-2.5 pt-1 avoid-break-inside text-[11.5pt] print:text-[11pt] surat-ttd-section">
+            {/* 9. TANDA TANGAN RAPI & SEIMBANG (11.5PT) - Space Lebih Lebar untuk TTD & Stempel */}
+            <div className="mt-4 print:mt-3 pt-1 avoid-break-inside text-[11.5pt] print:text-[11pt] surat-ttd-section">
               {/* Panitia Pelaksana */}
-              <div className="text-center mb-0.5 font-bold uppercase tracking-wider text-[10.5pt] print:text-[10pt]">
+              <div className="text-center mb-1 font-bold uppercase tracking-wider text-[10.5pt] print:text-[10pt]">
                 PANITIA PELAKSANA MUHIBBIN 2026
               </div>
 
-              <table className="w-full border-none border-collapse text-center my-0.5 text-[11.5pt] print:text-[11pt]">
+              <table className="w-full border-none border-collapse text-center my-1 text-[11.5pt] print:text-[11pt]">
                 <tbody>
                   <tr>
-                    <td className="w-1/2 align-top pb-8 print:pb-7 font-normal">
+                    <td className="w-1/2 align-top pb-12 sm:pb-14 print:pb-11 font-normal">
                       Ketua Panitia,
                     </td>
-                    <td className="w-1/2 align-top pb-8 print:pb-7 font-normal">
+                    <td className="w-1/2 align-top pb-12 sm:pb-14 print:pb-11 font-normal">
                       Sekretaris Panitia,
                     </td>
                   </tr>
@@ -602,9 +602,9 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
               </table>
 
               {/* Mengetahui PCPM Cluring (Hanya Ketua) */}
-              <div className="mt-2 pt-0.5 text-center text-[11.5pt] print:text-[11pt]">
+              <div className="mt-3 print:mt-2.5 pt-0.5 text-center text-[11.5pt] print:text-[11pt]">
                 <p className="text-[10pt] print:text-[9.5pt] font-normal">Mengetahui,</p>
-                <div className="pt-0.5 pb-8 print:pb-7 text-center font-normal text-[10.5pt] print:text-[10pt]">
+                <div className="pt-0.5 pb-12 sm:pb-14 print:pb-11 text-center font-normal text-[10.5pt] print:text-[10pt]">
                   Ketua PCPM Cluring,
                 </div>
                 <div className="text-center">
