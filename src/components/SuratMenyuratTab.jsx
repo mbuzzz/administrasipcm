@@ -15,6 +15,73 @@ import { proposalData } from '../data/proposalData';
 export default function SuratMenyuratTab() {
   const { identitas, pengesahan, cabangLomba } = proposalData;
 
+  // Daftar Resmi Dewan Juri dari Proposal (Selain Ust. Adi P. dan Ust. Maman/Mohammad Mukhlis yang merupakan Panitia Inti)
+  const daftarJuriProposal = [
+    {
+      id: 'juri_zulfian',
+      nama: 'Ustadz Zulfian Al Hilal',
+      namaSingkat: 'Ust. Zulfian Al Hilal',
+      cabang: "Tartil Al-Qur'an",
+      kategori: 'SD/MI Kelas 2–5',
+      lokasi: 'Masjid Al Hidayah Tampo (Shaf Laki-laki)',
+      kodeNomor: '1.2.1/06/2026'
+    },
+    {
+      id: 'juri_wildan',
+      nama: 'Ustadz Wildan',
+      namaSingkat: 'Ust. Wildan',
+      cabang: 'Adzan dan Iqomah',
+      kategori: 'SD/MI Kelas 2–5',
+      lokasi: "Gedung TK 'Aisyiyah Tampo (Ruang Kelas Khusus)",
+      kodeNomor: '1.2.2/06/2026'
+    },
+    {
+      id: 'juri_rahmad',
+      nama: 'Ustadz Rahmad',
+      namaSingkat: 'Ust. Rahmad',
+      cabang: 'Adzan dan Iqomah',
+      kategori: 'SD/MI Kelas 2–5',
+      lokasi: "Gedung TK 'Aisyiyah Tampo (Ruang Kelas Khusus)",
+      kodeNomor: '1.2.3/06/2026'
+    },
+    {
+      id: 'juri_tk_dinar',
+      nama: 'Guru / Ustadzah TK Dinar',
+      namaSingkat: 'Guru TK Dinar',
+      cabang: 'Mewarnai Kaligrafi',
+      kategori: 'TK & TPA Usia TK',
+      lokasi: "Ruang Kelas TK 'Aisyiyah Tampo",
+      kodeNomor: '1.2.4/06/2026'
+    },
+    {
+      id: 'juri_tk_aisyiyah',
+      nama: 'Guru / Ustadzah TK \'Aisyiyah Tampo',
+      namaSingkat: 'Guru TK \'Aisyiyah Tampo',
+      cabang: 'Mewarnai Kaligrafi',
+      kategori: 'TK & TPA Usia TK',
+      lokasi: "Ruang Kelas TK 'Aisyiyah Tampo",
+      kodeNomor: '1.2.5/06/2026'
+    },
+    {
+      id: 'juri_yanto',
+      nama: 'Ustadz Yanto',
+      namaSingkat: 'Ust. Yanto',
+      cabang: 'Pildacil (Da\'i Cilik)',
+      kategori: 'SD/MI Kelas 4–6',
+      lokasi: 'Masjid Al Hidayah Tampo (Shaf Perempuan)',
+      kodeNomor: '1.2.6/06/2026'
+    },
+    {
+      id: 'juri_fahmi',
+      nama: 'Ustadz Fahmi',
+      namaSingkat: 'Ust. Fahmi',
+      cabang: 'Pildacil (Da\'i Cilik)',
+      kategori: 'SD/MI Kelas 4–6',
+      lokasi: 'Masjid Al Hidayah Tampo (Shaf Perempuan)',
+      kodeNomor: '1.2.7/06/2026'
+    }
+  ];
+
   // 7 Jenis Template Surat Resmi Ringkas & Padat Sesuai Kebutuhan 1 Lembar A4
   const suratTemplates = [
     {
@@ -53,13 +120,13 @@ Maka kami memohon kepada Bapak/Ibu/Pimpinan untuk berkenan memberikan bantuan Ko
     },
     {
       id: 'juri',
-      title: '3. Permohonan Menjadi Juri (Kode 1.2)',
+      title: '3. Permohonan Menjadi Dewan Juri',
       kodeNomor: '1.2/06/2026',
       hal: 'Permohonan Menjadi Dewan Juri',
       lampiran: '1 (Satu) Lembar Juknis Lomba',
-      tujuan: 'Ustadz / Ustadzah Dewan Juri',
-      namaJuri: 'Muhammad Adi P.',
-      cabangLombaPilihan: 'Tartil Al-Qur\'an',
+      tujuan: daftarJuriProposal[0].nama,
+      namaJuri: daftarJuriProposal[0].nama,
+      cabangLombaPilihan: daftarJuriProposal[0].cabang,
       tempatTujuan: 'Di Tempat',
       isiKhusus: `Sehubungan dengan pelaksanaan kegiatan musabaqah santri MUHIBBIN 2026 dalam rangka memperingati Maulid Nabi Muhammad SAW 1448 H / 2026 M pada:
 
@@ -67,7 +134,7 @@ Hari, Tanggal : ${identitas.waktu}
 Waktu         : Pukul ${identitas.jam} (Rundown mulai 08.30 WIB)
 Tempat        : ${identitas.lokasiUtama}
 
-Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dewan Juri pada Cabang Lomba: Tartil Al-Qur'an (SD/MI Kelas 2–5) bertempat di Shaf Laki-laki Masjid Al Hidayah Tampo.`
+Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dewan Juri pada Cabang Lomba: ${daftarJuriProposal[0].cabang} (${daftarJuriProposal[0].kategori}) bertempat di ${daftarJuriProposal[0].lokasi}.`
     },
     {
       id: 'izin_tempat',
@@ -87,7 +154,7 @@ Kami memohon izin dan perkenan Bapak/Ibu untuk meminjam dan menggunakan fasilita
     },
     {
       id: 'undangan_peserta',
-      title: '5. Surat Undangan Peserta',
+      title: '5. Surat Undangan Peserta Lomba',
       kodeNomor: '1.1/06/2026',
       hal: 'Undangan & Delegasi Peserta Lomba MUHIBBIN 2026',
       lampiran: '1 (Satu) Berkas Juknis & Formulir',
@@ -137,6 +204,7 @@ Maka kami mengundang dengan hormat kehadiran Ibu Ketua beserta segenap jajaran P
   ];
 
   const [activeTemplateId, setActiveTemplateId] = useState('sponsorship');
+  const [selectedJuriId, setSelectedJuriId] = useState(daftarJuriProposal[0].id);
   
   // State form yang bisa diedit
   const [formData, setFormData] = useState({
@@ -148,53 +216,62 @@ Maka kami mengundang dengan hormat kehadiran Ibu Ketua beserta segenap jajaran P
     tujuanSurat: 'Pimpinan Perusahaan / Bpk/Ibu Donatur',
     tempatTujuan: 'Di Tempat',
     isiSurat: suratTemplates[0].isiKhusus,
-    namaJuriKhusus: 'Muhammad Adi P.',
-    cabangLombaJuri: 'Tartil Al-Qur\'an',
-    lokasiLombaJuri: 'Dalam Masjid Al Hidayah Tampo (Shaf Laki-laki)'
+    namaJuriKhusus: daftarJuriProposal[0].nama,
+    cabangLombaJuri: daftarJuriProposal[0].cabang,
+    lokasiLombaJuri: daftarJuriProposal[0].lokasi
   });
 
   const handleSelectTemplate = (template) => {
     setActiveTemplateId(template.id);
     let updatedIsi = template.isiKhusus;
+    let targetTujuan = template.tujuan;
+    let nomor = template.kodeNomor;
     
     if (template.id === 'juri') {
+      const currentJuri = daftarJuriProposal.find(j => j.id === selectedJuriId) || daftarJuriProposal[0];
+      targetTujuan = currentJuri.nama;
+      nomor = currentJuri.kodeNomor;
       updatedIsi = `Sehubungan dengan pelaksanaan kegiatan musabaqah santri MUHIBBIN 2026 dalam rangka memperingati Maulid Nabi Muhammad SAW 1448 H / 2026 M pada:
 
 Hari, Tanggal : ${identitas.waktu}
 Waktu         : Pukul ${identitas.jam} (Rundown mulai 08.30 WIB)
 Tempat        : ${identitas.lokasiUtama}
 
-Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dewan Juri pada Cabang Lomba: ${formData.cabangLombaJuri || 'Tartil Al-Qur\'an'} bertempat di ${formData.lokasiLombaJuri || 'Masjid Al Hidayah Tampo'}.`;
+Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dewan Juri pada Cabang Lomba: ${currentJuri.cabang} (${currentJuri.kategori}) bertempat di ${currentJuri.lokasi}.`;
     }
 
     setFormData(prev => ({
       ...prev,
-      nomorSurat: template.kodeNomor,
+      nomorSurat: nomor,
       lampiran: template.lampiran,
       hal: template.hal,
-      tujuanSurat: template.tujuan,
+      tujuanSurat: targetTujuan,
       tempatTujuan: template.tempatTujuan,
       isiSurat: updatedIsi
     }));
   };
 
-  const handleCabangJuriChange = (e) => {
-    const cabangName = e.target.value;
-    const foundLomba = cabangLomba.find(l => l.nama === cabangName);
-    const lokasi = foundLomba ? foundLomba.lokasiDetail || foundLomba.tempat : 'Masjid Al Hidayah Tampo';
-
+  const handlePilihJuriSpesifik = (juriItem) => {
+    setSelectedJuriId(juriItem.id);
+    setActiveTemplateId('juri');
     const newIsi = `Sehubungan dengan pelaksanaan kegiatan musabaqah santri MUHIBBIN 2026 dalam rangka memperingati Maulid Nabi Muhammad SAW 1448 H / 2026 M pada:
 
 Hari, Tanggal : ${identitas.waktu}
 Waktu         : Pukul ${identitas.jam} (Rundown mulai 08.30 WIB)
 Tempat        : ${identitas.lokasiUtama}
 
-Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dewan Juri pada Cabang Lomba: ${cabangName} (${foundLomba ? foundLomba.kategori : ''}) bertempat di ${lokasi}.`;
+Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dewan Juri pada Cabang Lomba: ${juriItem.cabang} (${juriItem.kategori}) bertempat di ${juriItem.lokasi}.`;
 
     setFormData(prev => ({
       ...prev,
-      cabangLombaJuri: cabangName,
-      lokasiLombaJuri: lokasi,
+      nomorSurat: juriItem.kodeNomor,
+      lampiran: '1 (Satu) Lembar Juknis Lomba',
+      hal: 'Permohonan Menjadi Dewan Juri',
+      tujuanSurat: juriItem.nama,
+      tempatTujuan: 'Di Tempat',
+      cabangLombaJuri: juriItem.cabang,
+      lokasiLombaJuri: juriItem.lokasi,
+      namaJuriKhusus: juriItem.nama,
       isiSurat: newIsi
     }));
   };
@@ -284,19 +361,43 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
               />
             </div>
 
-            {/* Juri Specific Selector */}
+            {/* Panel Khusus Pemilihan Dewan Juri Sesuai Proposal (Selain Adi & Maman) */}
             {activeTemplateId === 'juri' && (
-              <div>
-                <label className="block text-slate-700 font-semibold mb-1">Cabang Lomba Juri:</label>
-                <select
-                  value={formData.cabangLombaJuri}
-                  onChange={handleCabangJuriChange}
-                  className="w-full p-1.5 bg-slate-50 border border-slate-300 rounded text-slate-900 text-xs font-semibold focus:ring-1 focus:ring-emerald-500 focus:outline-none"
-                >
-                  {cabangLomba.map(l => (
-                    <option key={l.id} value={l.nama}>{l.nama} ({l.kategori})</option>
-                  ))}
-                </select>
+              <div className="bg-emerald-50/60 p-2.5 rounded-lg border border-emerald-200 space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-emerald-950 font-bold text-[11px] uppercase tracking-wider">
+                    Pilih Nama Dewan Juri (Proposal):
+                  </label>
+                  <span className="text-[10px] text-emerald-700 font-semibold bg-emerald-100/80 px-1.5 py-0.5 rounded">
+                    7 Juri Terdaftar
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 gap-1">
+                  {daftarJuriProposal.map((juri) => {
+                    const isSelected = selectedJuriId === juri.id;
+                    return (
+                      <button
+                        key={juri.id}
+                        type="button"
+                        onClick={() => handlePilihJuriSpesifik(juri)}
+                        className={`w-full text-left p-1.5 rounded transition-all flex items-center justify-between border text-[11px] ${
+                          isSelected
+                            ? 'bg-pm-green text-white font-bold border-pm-green shadow-xs'
+                            : 'bg-white hover:bg-emerald-100/50 text-slate-800 border-slate-200'
+                        }`}
+                      >
+                        <div className="min-w-0 pr-1">
+                          <p className="truncate font-semibold">{juri.nama}</p>
+                          <p className={`text-[9.5pt] truncate ${isSelected ? 'text-amber-200' : 'text-slate-500'}`}>
+                            {juri.cabang} • {juri.kategori}
+                          </p>
+                        </div>
+                        {isSelected && <Check className="w-3.5 h-3.5 text-amber-300 flex-shrink-0" />}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             )}
 
