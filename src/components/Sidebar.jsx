@@ -18,7 +18,8 @@ import {
   ShieldCheck,
   Download,
   Trophy,
-  FileText
+  FileText,
+  ClipboardList
 } from 'lucide-react';
 import { proposalData } from '../data/proposalData';
 
@@ -91,11 +92,18 @@ export default function Sidebar({
       nomor: '08'
     },
     { 
+      id: 'form_penilaian', 
+      label: 'Form Penilaian Juri', 
+      sublabel: 'Score Sheet Siap Print (A4)', 
+      icon: ClipboardList,
+      nomor: '09'
+    },
+    { 
       id: 'cetak_full', 
       label: 'Cetak Proposal Full (A4)', 
       sublabel: 'Dokumen Utuh Siap PDF', 
       icon: Printer,
-      nomor: '09',
+      nomor: '10',
       highlight: true
     },
   ];
