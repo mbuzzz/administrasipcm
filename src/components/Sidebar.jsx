@@ -84,11 +84,18 @@ export default function Sidebar({
       nomor: '07'
     },
     { 
+      id: 'lampiran_juknis', 
+      label: 'Lampiran Juknis Lomba', 
+      sublabel: '4 Lembar A4 Siap Print', 
+      icon: Award,
+      nomor: '08'
+    },
+    { 
       id: 'cetak_full', 
       label: 'Cetak Proposal Full (A4)', 
       sublabel: 'Dokumen Utuh Siap PDF', 
       icon: Printer,
-      nomor: '08',
+      nomor: '09',
       highlight: true
     },
   ];

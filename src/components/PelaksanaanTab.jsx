@@ -19,6 +19,14 @@ export default function PelaksanaanTab({ setActiveTab }) {
         </div>
 
         <div className="flex items-center gap-2">
+          {setActiveTab && (
+            <button
+              onClick={() => setActiveTab('lampiran_juknis')}
+              className="flex items-center gap-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-2 rounded border border-emerald-300 transition-all"
+            >
+              <span>Lampiran Juknis Per Lomba</span>
+            </button>
+          )}
           <button
             onClick={handlePrint}
             className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-3 py-2 rounded shadow-sm transition-all"

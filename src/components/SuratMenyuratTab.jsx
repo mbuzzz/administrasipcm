@@ -12,7 +12,7 @@ import {
 import KopSurat from './KopSurat';
 import { proposalData } from '../data/proposalData';
 
-export default function SuratMenyuratTab() {
+export default function SuratMenyuratTab({ setActiveTab }) {
   const { identitas, pengesahan, cabangLomba } = proposalData;
 
   // Daftar Resmi Dewan Juri dari Proposal (Selain Ust. Adi P. dan Ust. Maman/Mohammad Mukhlis yang merupakan Panitia Inti)
@@ -292,13 +292,24 @@ Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dew
           </div>
         </div>
 
-        <button
-          onClick={handlePrintSurat}
-          className="flex items-center gap-1.5 bg-pm-green hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded shadow-sm transition-all"
-        >
-          <Printer className="w-4 h-4 text-amber-300" />
-          <span>Cetak Surat (Ctrl+P)</span>
-        </button>
+        <div className="flex items-center gap-2">
+          {setActiveTab && (
+            <button
+              onClick={() => setActiveTab('lampiran_juknis')}
+              className="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs px-3 py-2 rounded shadow-xs transition-all border border-slate-300"
+            >
+              <Award className="w-4 h-4 text-emerald-600" />
+              <span>Lampiran Juknis (A4)</span>
+            </button>
+          )}
+          <button
+            onClick={handlePrintSurat}
+            className="flex items-center gap-1.5 bg-pm-green hover:bg-emerald-800 text-white font-bold text-xs sm:text-sm px-4 py-2 rounded shadow-sm transition-all"
+          >
+            <Printer className="w-4 h-4 text-amber-300" />
+            <span>Cetak Surat (Ctrl+P)</span>
+          </button>
+        </div>
       </div>
 
       {/* Grid Layout: Form Controls (Kiri - no print) & Live Paper View (Kanan) */}
