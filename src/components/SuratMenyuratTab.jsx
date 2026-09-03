@@ -120,7 +120,7 @@ Maka kami memohon kepada Bapak/Ibu/Pimpinan untuk berkenan memberikan bantuan Ko
     },
     {
       id: 'juri',
-      title: '3. Permohonan Menjadi Dewan Juri',
+      title: '3. Permohonan Menjadi Dewan Juri (Perorangan)',
       kodeNomor: '1.2/06/2026',
       hal: 'Permohonan Menjadi Dewan Juri',
       lampiran: '1 (Satu) Lembar Juknis Lomba',
@@ -137,8 +137,25 @@ Tempat        : ${identitas.lokasiUtama}
 Maka kami memohon kesediaan Bapak/Ibu/Ustadz/Ustadzah untuk berkenan menjadi Dewan Juri pada Cabang Lomba: ${daftarJuriProposal[0].cabang} (${daftarJuriProposal[0].kategori}) bertempat di ${daftarJuriProposal[0].lokasi}.`
     },
     {
+      id: 'juri_pdpm',
+      title: '4. Permohonan Utusan Juri (PDPM Banyuwangi)',
+      kodeNomor: '1.2/06/2026',
+      hal: 'Permohonan Utusan Dewan Juri Lomba MUHIBBIN 2026',
+      lampiran: '1 (Satu) Berkas Proposal & Juknis',
+      tujuan: 'Ketua Pimpinan Daerah Pemuda Muhammadiyah (PDPM) Banyuwangi',
+      tempatTujuan: 'Di Banyuwangi',
+      isiKhusus: `Sehubungan dengan pelaksanaan kegiatan Musabaqah Santri MUHIBBIN (Musabaqah li Thulab wa Tholibin) dalam rangka memperingati Maulid Nabi Muhammad SAW 1448 H / 2026 M yang diselenggarakan oleh Pimpinan Cabang Pemuda Muhammadiyah (PCPM) Cluring pada:
+
+Hari, Tanggal : ${identitas.waktu}
+Waktu         : Pukul ${identitas.jam} (Rundown mulai 08.30 WIB)
+Tempat        : Kompleks Masjid Al Hidayah & TK 'Aisyiyah Tampo, Cluring
+Cabang Lomba  : Tartil Al-Qur'an, Adzan-Iqomah, Mewarnai Kaligrafi, dan Pildacil
+
+Maka kami memohon dengan hormat kesediaan Ketua PDPM Banyuwangi untuk berkenan menugaskan dan mengirimkan kader/personil terbaik sebagai Dewan Juri pada cabang perlombaan tersebut guna menjamin objektivitas dan kualitas pelaksanaan musabaqah (jadwal dan juknis terlampir).`
+    },
+    {
       id: 'izin_tempat',
-      title: '4. Permohonan Peminjaman Tempat',
+      title: '5. Permohonan Peminjaman Tempat & Fasilitas',
       kodeNomor: '1.7/06/2026',
       hal: 'Permohonan Peminjaman Tempat & Fasilitas',
       lampiran: '1 (Satu) Berkas Proposal',
@@ -153,12 +170,30 @@ Peserta       : Santri TK, TPA, dan Pelajar SD/MI se-Kecamatan Cluring
 Kami memohon izin dan perkenan Bapak/Ibu untuk meminjam dan menggunakan fasilitas Masjid Al Hidayah dan Gedung TK 'Aisyiyah Tampo beserta sarana pendukungnya demi kelancaran dan kekhidmatan acara tersebut.`
     },
     {
+      id: 'delegasi_tpa_tk',
+      title: '6. Permohonan Delegasi Peserta (TPA, TQA & TK)',
+      kodeNomor: '1.1/06/2026',
+      hal: 'Permohonan Delegasi Peserta Lomba MUHIBBIN 2026',
+      lampiran: '1 (Satu) Berkas Juknis & Formulir Pendaftaran',
+      tujuan: 'Kepala TK \'Aisyiyah, Pengasuh TPA & TQA se-Cabang Cluring',
+      tempatTujuan: 'Di Tempat',
+      isiKhusus: `Dalam rangka menyemarakkan syiar Islam dan memperingati Maulid Nabi Muhammad SAW 1448 H / 2026 M, kami mengundang dan memohon kepada segenap Kepala TK 'Aisyiyah, Pengasuh TPA, dan Pengasuh TQA se-Kecamatan/Cabang Cluring untuk mengirimkan santri/siswa terbaiknya sebagai delegasi peserta lomba pada kegiatan:
+
+Nama Kegiatan : MUHIBBIN (Musabaqah li Thulab wa Tholibin) 2026
+Hari, Tanggal : ${identitas.waktu}
+Waktu         : Pukul 08.00 WIB s/d Selesai (Rundown Pembukaan mulai 08.30 WIB)
+Tempat        : Kompleks Masjid Al Hidayah & TK 'Aisyiyah Tampo, Cluring
+Biaya         : 100% GRATIS (Tanpa Biaya Pendaftaran)
+
+Adapun cabang lomba yang dimusabaqahkan meliputi: Tartil Al-Qur'an (SD/MI), Adzan dan Iqomah (SD/MI), Mewarnai Kaligrafi (TK/TPA), dan Pildacil Santri (SD/MI). Ketentuan petunjuk teknis dan formulir terlampir.`
+    },
+    {
       id: 'undangan_peserta',
-      title: '5. Surat Undangan Peserta Lomba',
+      title: '7. Surat Undangan Peserta Lomba (Umum SD/MI)',
       kodeNomor: '1.1/06/2026',
       hal: 'Undangan & Delegasi Peserta Lomba MUHIBBIN 2026',
       lampiran: '1 (Satu) Berkas Juknis & Formulir',
-      tujuan: 'Kepala TK / Pengasuh TPA / Kepala SD-MI se-Kecamatan Cluring',
+      tujuan: 'Kepala SD & MI se-Kecamatan Cluring',
       tempatTujuan: 'Di Tempat',
       isiKhusus: `Dalam rangka menyemarakkan Maulid Nabi Muhammad SAW 1448 H / 2026 M, kami mengundang Bapak/Ibu untuk mengirimkan delegasi santri/siswa terbaik pada ajang musabaqah MUHIBBIN 2026 yang insya Allah akan dilaksanakan pada:
 
@@ -169,7 +204,7 @@ Pendaftaran   : GRATIS (Tanpa Biaya Pendaftaran)`
     },
     {
       id: 'undangan_pcm',
-      title: '6. Undangan Pembukaan (PCM Cluring)',
+      title: '8. Undangan Pembukaan (PCM Cluring)',
       kodeNomor: '1.0/06/2026',
       hal: 'Permohonan Menghadiri & Memberikan Sambutan Pembukaan',
       lampiran: '1 (Satu) Berkas Proposal',
@@ -186,7 +221,7 @@ Maka kami memohon dengan hormat kesediaan Bapak Ketua beserta segenap jajaran Pi
     },
     {
       id: 'undangan_pca',
-      title: '7. Undangan Pembukaan (PCA Cluring)',
+      title: '9. Undangan Pembukaan (PCA Cluring)',
       kodeNomor: '1.0/06/2026',
       hal: 'Undangan Menghadiri Pembukaan MUHIBBIN 2026',
       lampiran: '1 (Satu) Berkas Proposal',
@@ -199,7 +234,7 @@ Waktu         : Pukul 08.00 WIB s/d Selesai (Rundown Pembukaan mulai 08.30 WIB)
 Tempat        : Kompleks Masjid Al Hidayah & TK 'Aisyiyah Tampo, Cluring
 Tema          : "${identitas.tema}"
 
-Maka kami mengundang dengan hormat kehadiran Ibu Ketua beserta segenap jajaran Pimpinan Cabang 'Aisyiyah (PCA) Cluring dalam acara Pembukaan Musabaqah MUHIBBIN 2026 demi kelancaran, kekhidmatan, dan syiar dakwah persyarikatan.`
+Maka kami memohon dengan hormat kesediaan Ibu Ketua beserta segenap jajaran Pimpinan Cabang 'Aisyiyah (PCA) Cluring untuk berkenan hadir pada acara Pembukaan Musabaqah MUHIBBIN 2026 tersebut.`
     }
   ];
 

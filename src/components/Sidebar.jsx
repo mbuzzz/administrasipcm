@@ -81,7 +81,7 @@ export default function Sidebar({
     { 
       id: 'surat_menyurat', 
       label: 'Modul Surat Menyurat', 
-      sublabel: 'Generator 7 Surat Resmi', 
+      sublabel: 'Generator 9 Surat Resmi', 
       icon: Mail,
       nomor: '07'
     },
