@@ -208,7 +208,7 @@ export default function SertifikatTab({ setActiveTab }) {
 
   const [activeJuaraIndex, setActiveJuaraIndex] = useState(0);
 
-  // State Kustomisasi Nama Juara (Bisa diedit oleh user)
+  // State Kustomisasi Nama Juara
   const [customJuaraData, setCustomJuaraData] = useState(() => {
     const initial = {};
     defaultJuaraList.forEach(j => {
@@ -391,8 +391,7 @@ export default function SertifikatTab({ setActiveTab }) {
           borderOuter: 'border-[#B8860B]',
           borderInner: 'border-[#D4AF37]',
           accentText: 'text-[#8A5D00]',
-          titleText: 'text-[#5C3E00]',
-          headerBadgeBg: 'from-amber-600 to-amber-800'
+          titleText: 'text-[#5C3E00]'
         };
       case 'clean_white':
         return {
@@ -400,8 +399,7 @@ export default function SertifikatTab({ setActiveTab }) {
           borderOuter: 'border-slate-800',
           borderInner: 'border-emerald-700',
           accentText: 'text-emerald-800',
-          titleText: 'text-slate-900',
-          headerBadgeBg: 'from-emerald-800 to-emerald-950'
+          titleText: 'text-slate-900'
         };
       case 'emerald_gold':
       default:
@@ -410,8 +408,7 @@ export default function SertifikatTab({ setActiveTab }) {
           borderOuter: 'border-[#043927]',
           borderInner: 'border-[#D4AF37]',
           accentText: 'text-[#D4AF37]',
-          titleText: 'text-[#043927]',
-          headerBadgeBg: 'from-[#043927] to-[#022517]'
+          titleText: 'text-[#043927]'
         };
     }
   };
@@ -420,36 +417,43 @@ export default function SertifikatTab({ setActiveTab }) {
 
   return (
     <div className="space-y-6 w-full font-sans">
-      {/* Dynamic Print CSS untuk Format Ukuran Kertas A4 Landscape Presisi */}
+      {/* Dynamic Print CSS untuk Format Ukuran Kertas A4 Landscape Presisi 100% 1 HALAMAN PAS */}
       <style>{`
         @media print {
           @page {
             size: A4 landscape;
             margin: 0;
           }
-          body {
-            background: white !important;
+          html, body {
+            width: 297mm !important;
+            height: 210mm !important;
+            max-height: 210mm !important;
             margin: 0 !important;
             padding: 0 !important;
+            background: white !important;
+            overflow: hidden !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
           }
           .cert-a4-landscape-wrapper {
-            width: 297mm !important;
-            max-width: 297mm !important;
-            height: 210mm !important;
-            max-height: 210mm !important;
-            margin: 0 !important;
-            padding: 6mm 8mm !important;
+            width: 285mm !important;
+            max-width: 285mm !important;
+            height: 198mm !important;
+            max-height: 198mm !important;
+            margin: 4mm auto !important;
+            padding: 3mm 5mm !important;
             box-shadow: none !important;
             border: none !important;
             background: white !important;
             display: flex !important;
             flex-direction: column !important;
             justify-content: space-between !important;
+            page-break-inside: avoid !important;
             page-break-after: avoid !important;
+            break-inside: avoid !important;
             break-after: avoid !important;
             box-sizing: border-box !important;
+            overflow: hidden !important;
           }
           .no-print {
             display: none !important;
@@ -465,7 +469,7 @@ export default function SertifikatTab({ setActiveTab }) {
             background: #ffffff;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.08);
             box-sizing: border-box;
-            padding: 6mm 8mm;
+            padding: 5mm 7mm;
             border-radius: 6px;
             margin: 1.5rem auto;
             position: relative;
@@ -493,7 +497,7 @@ export default function SertifikatTab({ setActiveTab }) {
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-slate-500">
-                Format A4 Landscape (297 x 210 mm) &bull; Desain Piagam Mewah Emas & Hijau Pemuda Muhammadiyah &bull; Nama Juara Dapat Dicustom
+                Format Pas 1 Lembar A4 Landscape (297 x 210 mm) &bull; Logo Atas Tengah &bull; Bebas NBM & Stamp &bull; Custom Nama Juara
               </p>
             </div>
           </div>
@@ -519,7 +523,7 @@ export default function SertifikatTab({ setActiveTab }) {
               )}
             </button>
 
-            {/* Tombol Download 12 Juara Sekaligus (Hanya muncul saat mode Juara) */}
+            {/* Tombol Download 12 Juara Sekaligus */}
             {certMode === 'juara' && (
               <button
                 onClick={handleDownloadAllJuaraPDF}
@@ -538,7 +542,7 @@ export default function SertifikatTab({ setActiveTab }) {
               className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs sm:text-sm px-3.5 py-2.5 rounded-lg shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               <Printer className="w-4 h-4 text-slate-300" />
-              <span>Print (Ctrl+P)</span>
+              <span>Print Pas 1 Lembar (Ctrl+P)</span>
             </button>
           </div>
         </div>
@@ -816,54 +820,54 @@ export default function SertifikatTab({ setActiveTab }) {
           className={`cert-a4-landscape-wrapper ${themeCfg.bgClass} font-tnr select-text`}
           style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'top center' }}
         >
-          {/* Bingkai Ganda Luar 1 (Outer Border Tebal 3.5mm) */}
-          <div className={`w-full h-full border-[3.5px] ${themeCfg.borderOuter} p-1 flex flex-col justify-between box-border relative overflow-hidden`}>
+          {/* Bingkai Ganda Luar 1 (Outer Border Tebal) */}
+          <div className={`w-full h-full border-[3px] ${themeCfg.borderOuter} p-1 flex flex-col justify-between box-border relative overflow-hidden`}>
             
-            {/* Bingkai Emas Guilloche 2 (Mid Gold Border 1.5mm) */}
+            {/* Bingkai Emas Guilloche 2 (Mid Gold Border) */}
             <div className={`w-full h-full border-[1.5px] ${themeCfg.borderInner} p-1 flex flex-col justify-between box-border relative overflow-hidden`}>
               
               {/* Bingkai Dalam Formal 3 (Inner Thin Border) */}
-              <div className={`w-full h-full border ${themeCfg.borderOuter} px-7 py-4 flex flex-col justify-between items-center text-center text-black box-border relative`}>
+              <div className={`w-full h-full border ${themeCfg.borderOuter} px-6 py-3 flex flex-col justify-between items-center text-center text-black box-border relative overflow-hidden`}>
                 
                 {/* Ornamen 4 Sudut Emas Mewah (Corner Rosettes) */}
-                <div className="absolute top-1.5 left-1.5 w-6 h-6 border-t-2 border-l-2 border-[#D4AF37]">
+                <div className="absolute top-1.5 left-1.5 w-5 h-5 border-t-2 border-l-2 border-[#D4AF37]">
                   <div className="w-1.5 h-1.5 bg-[#D4AF37] absolute top-0.5 left-0.5"></div>
                 </div>
-                <div className="absolute top-1.5 right-1.5 w-6 h-6 border-t-2 border-r-2 border-[#D4AF37]">
+                <div className="absolute top-1.5 right-1.5 w-5 h-5 border-t-2 border-r-2 border-[#D4AF37]">
                   <div className="w-1.5 h-1.5 bg-[#D4AF37] absolute top-0.5 right-0.5"></div>
                 </div>
-                <div className="absolute bottom-1.5 left-1.5 w-6 h-6 border-b-2 border-l-2 border-[#D4AF37]">
+                <div className="absolute bottom-1.5 left-1.5 w-5 h-5 border-b-2 border-l-2 border-[#D4AF37]">
                   <div className="w-1.5 h-1.5 bg-[#D4AF37] absolute bottom-0.5 left-0.5"></div>
                 </div>
-                <div className="absolute bottom-1.5 right-1.5 w-6 h-6 border-b-2 border-r-2 border-[#D4AF37]">
+                <div className="absolute bottom-1.5 right-1.5 w-5 h-5 border-b-2 border-r-2 border-[#D4AF37]">
                   <div className="w-1.5 h-1.5 bg-[#D4AF37] absolute bottom-0.5 right-0.5"></div>
                 </div>
 
                 {/* Watermark Logo Transparan di Tengah Background */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.04]">
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.035]">
                   <img 
                     src="/Logo-Pemuda-Muhammadiyah.png" 
                     alt="Watermark" 
-                    className="w-72 h-72 object-contain"
+                    className="w-64 h-64 object-contain"
                   />
                 </div>
 
                 {/* --------------------------------------------------------------------- */}
                 {/* 1. KOP SERTIFIKAT RESMI & LOGO DI ATAS TENGAH */}
                 {/* --------------------------------------------------------------------- */}
-                <div className="w-full flex flex-col items-center pt-0.5 space-y-1 z-10">
+                <div className="w-full flex flex-col items-center pt-0 space-y-0.5 z-10">
                   {/* Logo Pemuda Muhammadiyah di Atas Tengah */}
                   <div className="flex flex-col items-center justify-center">
                     <img 
                       src="/Logo-Pemuda-Muhammadiyah.png" 
                       alt="Logo Pemuda Muhammadiyah" 
-                      className="w-12 h-12 object-contain drop-shadow-sm mb-1"
+                      className="w-10 h-10 object-contain drop-shadow-sm mb-0.5"
                     />
                     <div className="text-center">
-                      <p className="text-[9.5pt] font-bold tracking-[0.25em] uppercase text-slate-900 font-serif">
+                      <p className="text-[9pt] font-bold tracking-[0.25em] uppercase text-slate-900 font-serif">
                         PIMPINAN CABANG PEMUDA MUHAMMADIYAH CLURING
                       </p>
-                      <p className="text-[7.5pt] font-bold tracking-wider uppercase text-slate-600">
+                      <p className="text-[7pt] font-bold tracking-wider uppercase text-slate-600">
                         DAERAH BANYUWANGI &bull; JAWA TIMUR
                       </p>
                     </div>
@@ -872,15 +876,15 @@ export default function SertifikatTab({ setActiveTab }) {
                   {/* Judul Besar Piagam dengan Ornamen Mewah */}
                   <div className="pt-0.5 space-y-0.5">
                     <div className="flex items-center justify-center gap-3">
-                      <div className="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-[#043927]"></div>
-                      <h1 className={`text-2xl sm:text-3xl font-black tracking-[0.18em] uppercase ${themeCfg.titleText} font-serif drop-shadow-sm`}>
+                      <div className="w-16 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-[#043927]"></div>
+                      <h1 className={`text-xl sm:text-2xl font-black tracking-[0.16em] uppercase ${themeCfg.titleText} font-serif drop-shadow-sm`}>
                         {certMode === 'juara' ? 'PIAGAM PENGHARGAAN' : 'SERTIFIKAT APRESIASI'}
                       </h1>
-                      <div className="w-20 h-[1.5px] bg-gradient-to-l from-transparent via-[#D4AF37] to-[#043927]"></div>
+                      <div className="w-16 h-[1.5px] bg-gradient-to-l from-transparent via-[#D4AF37] to-[#043927]"></div>
                     </div>
                     
                     {/* Nomor Surat Resmi Sesuai Format Organisasi */}
-                    <p className="text-[9.5pt] font-mono font-bold tracking-wider text-slate-800">
+                    <p className="text-[9pt] font-mono font-bold tracking-wider text-slate-800">
                       Nomor : {currentCert.nomorSurat}
                     </p>
                   </div>
@@ -889,95 +893,94 @@ export default function SertifikatTab({ setActiveTab }) {
                 {/* --------------------------------------------------------------------- */}
                 {/* 2. BADAN SERTIFIKAT & NAMA PENERIMA (SANGAT MEWAH) */}
                 {/* --------------------------------------------------------------------- */}
-                <div className="w-full max-w-3xl my-auto space-y-1.5 text-center z-10">
-                  <p className="text-[10pt] font-serif italic text-slate-700">
+                <div className="w-full max-w-3xl my-auto space-y-1 text-center z-10">
+                  <p className="text-[9.5pt] font-serif italic text-slate-700">
                     Diberikan dengan penuh apresiasi dan kehormatan kepada:
                   </p>
 
                   {/* Nama Lengkap Penerima (Gaya Kaligrafi & Font Besar Mewah) */}
-                  <div className="py-0.5">
-                    <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-wider text-slate-950 font-serif inline-block px-8 pb-1 drop-shadow-sm">
+                  <div className="py-0">
+                    <h2 className="text-xl sm:text-2xl font-black uppercase tracking-wider text-slate-950 font-serif inline-block px-6 pb-0.5 drop-shadow-sm">
                       {currentCert.namaPenerima}
                     </h2>
                     
                     {/* Garis Emas Ornamen Bawah Nama */}
-                    <div className="flex items-center justify-center gap-2 max-w-md mx-auto -mt-1">
+                    <div className="flex items-center justify-center gap-2 max-w-sm mx-auto -mt-0.5">
                       <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-[#B8860B]"></div>
-                      <div className="w-2 h-2 rotate-45 bg-[#D4AF37] border border-black"></div>
+                      <div className="w-1.5 h-1.5 rotate-45 bg-[#D4AF37] border border-black"></div>
                       <div className="h-[1.5px] flex-1 bg-gradient-to-l from-transparent via-[#D4AF37] to-[#B8860B]"></div>
                     </div>
 
-                    <p className="text-[9.5pt] font-bold text-slate-700 pt-1">
+                    <p className="text-[9pt] font-bold text-slate-700 pt-0.5">
                       {currentCert.asalLembaga}
                     </p>
                   </div>
 
                   {/* Status Predikat / Juara Ribbon Badge Mewah */}
-                  <div className="space-y-0.5">
-                    <p className="text-[9.5pt] font-serif italic text-slate-600">
+                  <div className="space-y-0.5 pt-0.5">
+                    <p className="text-[8.5pt] font-serif italic text-slate-600">
                       Atas pencapaian dan prestasinya sebagai:
                     </p>
                     
-                    {/* Badge Emas / Perak / Perunggu dengan Daun Mahkota & Bintang */}
-                    <div className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-600 text-slate-950 px-8 py-1 rounded-full shadow-md border-2 border-amber-600">
-                      <Trophy className="w-4 h-4 text-amber-950 drop-shadow" />
-                      <span className="text-base font-black tracking-widest uppercase font-serif">
+                    {/* Badge Emas / Perak / Perunggu */}
+                    <div className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 via-amber-300 to-amber-600 text-slate-950 px-6 py-0.5 rounded-full shadow-sm border border-amber-600">
+                      <Trophy className="w-3.5 h-3.5 text-amber-950 drop-shadow" />
+                      <span className="text-sm font-black tracking-widest uppercase font-serif">
                         {currentCert.peranTeks}
                       </span>
-                      <Trophy className="w-4 h-4 text-amber-950 drop-shadow" />
+                      <Trophy className="w-3.5 h-3.5 text-amber-950 drop-shadow" />
                     </div>
 
-                    <p className="text-[10.5pt] font-bold uppercase tracking-wide text-slate-900 pt-0.5">
-                      CABANG PERLOMBAAN: {currentCert.cabangNama} <span className="font-normal text-[9.5pt]">({currentCert.kategori})</span>
+                    <p className="text-[9.5pt] font-bold uppercase tracking-wide text-slate-900 pt-0.5">
+                      CABANG PERLOMBAAN: {currentCert.cabangNama} <span className="font-normal text-[8.5pt]">({currentCert.kategori})</span>
                     </p>
                   </div>
 
                   {/* Deskripsi Event */}
-                  <p className="text-[9pt] leading-snug text-slate-800 max-w-2xl mx-auto pt-0.5">
+                  <p className="text-[8.5pt] leading-snug text-slate-800 max-w-2xl mx-auto pt-0.5">
                     Dalam rangka menyemarakkan syiar Maulid Nabi Muhammad SAW 1448 H / 2026 M pada kegiatan <strong>MUHIBBIN 2026 (Musabaqah li Thulab wa Tholibin)</strong> bertema <em>&ldquo;{identitas.tema}&rdquo;</em> yang diselenggarakan oleh Pimpinan Cabang Pemuda Muhammadiyah Cluring pada {identitas.waktu} di {identitas.lokasiUtama}.
                   </p>
                 </div>
 
                 {/* --------------------------------------------------------------------- */}
-                {/* 3. LEMBAR TANDA TANGAN RESMI (3 TTD MURNI TANPA NBM & TANPA STAMP) */}
+                {/* 3. LEMBAR TANDA TANGAN RESMI (TABEL 3 KOLOM PAS 1 HALAMAN TANPA NBM & STAMP) */}
                 {/* --------------------------------------------------------------------- */}
                 <div className="w-full pt-1 z-10">
                   {/* Tanggal Resmi Surat */}
-                  <div className="text-center pb-1 text-[8.5pt]">
+                  <div className="text-center pb-1 text-[8pt]">
                     <p className="font-normal text-slate-700">
                       Ditetapkan di Cluring, 23 Rabiul Awal 1448 H / 6 September 2026 M
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2 items-end text-[9.5pt]">
-                    {/* Kiri: Ketua Panitia */}
-                    <div className="text-center">
-                      <p className="font-normal text-[9pt]">Ketua Panitia,</p>
-                      <div className="h-12 flex items-center justify-center">
-                        {/* Space TTD Bersih */}
-                      </div>
-                      <p className="font-bold underline uppercase text-[9.5pt]">{pengesahan.panitia.ketua.nama}</p>
-                    </div>
+                  {/* Tabel 3 Kolom Tanda Tangan Simetris & Stabil di Semua Browser / Print */}
+                  <table style={{ width: '100%', borderCollapse: 'collapse', border: 'none', tableLayout: 'fixed' }} className="my-0">
+                    <tbody>
+                      <tr>
+                        {/* Kolom 1: Ketua Panitia */}
+                        <td style={{ width: '33.33%', textAlign: 'center', verticalAlign: 'top', padding: '0 4px' }}>
+                          <p className="font-normal text-[8.5pt] leading-tight">Ketua Panitia,</p>
+                          <div style={{ height: '34px' }}></div>
+                          <p className="font-bold underline uppercase text-[9pt] leading-none">{pengesahan.panitia.ketua.nama}</p>
+                        </td>
 
-                    {/* Tengah: Mengetahui Ketua PCPM Cluring */}
-                    <div className="text-center">
-                      <p className="font-normal text-[9pt]">Mengetahui,</p>
-                      <p className="font-semibold uppercase text-[8.5pt]">Ketua PCPM Cluring,</p>
-                      <div className="h-10 flex items-center justify-center">
-                        {/* Space TTD Bersih Tanpa Stamp */}
-                      </div>
-                      <p className="font-bold underline uppercase text-[9.5pt]">{pengesahan.pcpm.ketua.nama}</p>
-                    </div>
+                        {/* Kolom 2: Mengetahui Ketua PCPM Cluring */}
+                        <td style={{ width: '33.33%', textAlign: 'center', verticalAlign: 'top', padding: '0 4px' }}>
+                          <p className="font-normal text-[8.5pt] leading-tight">Mengetahui,</p>
+                          <p className="font-semibold uppercase text-[8pt] leading-tight">Ketua PCPM Cluring,</p>
+                          <div style={{ height: '22px' }}></div>
+                          <p className="font-bold underline uppercase text-[9pt] leading-none">{pengesahan.pcpm.ketua.nama}</p>
+                        </td>
 
-                    {/* Kanan: Sekretaris Panitia */}
-                    <div className="text-center">
-                      <p className="font-normal text-[9pt]">Sekretaris Panitia,</p>
-                      <div className="h-12 flex items-center justify-center">
-                        {/* Space TTD Bersih */}
-                      </div>
-                      <p className="font-bold underline uppercase text-[9.5pt]">{pengesahan.panitia.sekretaris.nama}</p>
-                    </div>
-                  </div>
+                        {/* Kolom 3: Sekretaris Panitia */}
+                        <td style={{ width: '33.33%', textAlign: 'center', verticalAlign: 'top', padding: '0 4px' }}>
+                          <p className="font-normal text-[8.5pt] leading-tight">Sekretaris Panitia,</p>
+                          <div style={{ height: '34px' }}></div>
+                          <p className="font-bold underline uppercase text-[9pt] leading-none">{pengesahan.panitia.sekretaris.nama}</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
 
               </div>
