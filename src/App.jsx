@@ -10,6 +10,7 @@ import SuratMenyuratTab from './components/SuratMenyuratTab';
 import LampiranJuknisTab from './components/LampiranJuknisTab';
 import FormPenilaianTab from './components/FormPenilaianTab';
 import DaftarHadirTab from './components/DaftarHadirTab';
+import StikerPialaTab from './components/StikerPialaTab';
 import ProposalPrintView from './components/ProposalPrintView';
 import { proposalData } from './data/proposalData';
 import { 
@@ -56,6 +57,7 @@ export default function App() {
       case 'lampiran_juknis': return 'Lampiran Petunjuk Teknis Per Lomba (A4)';
       case 'form_penilaian': return 'Formulir Penilaian Dewan Juri (A4)';
       case 'daftar_hadir': return 'Daftar Hadir Resmi (Panitia, Juri, 50 Peserta)';
+      case 'stiker_piala': return 'Stiker Label Dudukan Piala A3 (12 Juara)';
       case 'cetak_full': return 'Dokumen Proposal Lengkap (A4)';
       default: return 'Proposal MUHIBBIN 2026';
     }
@@ -83,6 +85,8 @@ export default function App() {
         return <FormPenilaianTab setActiveTab={setActiveTab} />;
       case 'daftar_hadir':
         return <DaftarHadirTab setActiveTab={setActiveTab} />;
+      case 'stiker_piala':
+        return <StikerPialaTab setActiveTab={setActiveTab} />;
       case 'cetak_full':
         return <ProposalPrintView setActiveTab={setActiveTab} />;
       default:

@@ -107,11 +107,18 @@ export default function Sidebar({
       nomor: '10'
     },
     { 
+      id: 'stiker_piala', 
+      label: 'Stiker Label Piala (A3)', 
+      sublabel: 'Ukuran 6.5x7x7 cm (12 Juara)', 
+      icon: Trophy,
+      nomor: '11'
+    },
+    { 
       id: 'cetak_full', 
       label: 'Cetak Proposal Full (A4)', 
       sublabel: 'Dokumen Utuh Siap PDF', 
       icon: Printer,
-      nomor: '11',
+      nomor: '12',
       highlight: true
     },
   ];
