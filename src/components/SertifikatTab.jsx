@@ -849,17 +849,18 @@ export default function SertifikatTab({ setActiveTab }) {
                 </div>
 
                 {/* --------------------------------------------------------------------- */}
-                {/* 1. KOP SERTIFIKAT RESMI & LOGO */}
+                {/* 1. KOP SERTIFIKAT RESMI & LOGO DI ATAS TENGAH */}
                 {/* --------------------------------------------------------------------- */}
-                <div className="w-full flex flex-col items-center pt-0.5 space-y-0.5 z-10">
-                  <div className="flex items-center justify-center gap-2.5">
+                <div className="w-full flex flex-col items-center pt-0.5 space-y-1 z-10">
+                  {/* Logo Pemuda Muhammadiyah di Atas Tengah */}
+                  <div className="flex flex-col items-center justify-center">
                     <img 
                       src="/Logo-Pemuda-Muhammadiyah.png" 
                       alt="Logo Pemuda Muhammadiyah" 
-                      className="w-11 h-11 object-contain drop-shadow-sm"
+                      className="w-12 h-12 object-contain drop-shadow-sm mb-1"
                     />
                     <div className="text-center">
-                      <p className="text-[9pt] font-bold tracking-[0.25em] uppercase text-slate-800">
+                      <p className="text-[9.5pt] font-bold tracking-[0.25em] uppercase text-slate-900 font-serif">
                         PIMPINAN CABANG PEMUDA MUHAMMADIYAH CLURING
                       </p>
                       <p className="text-[7.5pt] font-bold tracking-wider uppercase text-slate-600">
@@ -871,11 +872,11 @@ export default function SertifikatTab({ setActiveTab }) {
                   {/* Judul Besar Piagam dengan Ornamen Mewah */}
                   <div className="pt-0.5 space-y-0.5">
                     <div className="flex items-center justify-center gap-3">
-                      <div className="w-16 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-[#043927]"></div>
-                      <h1 className={`text-2xl sm:text-3xl font-black tracking-[0.16em] uppercase ${themeCfg.titleText} font-serif drop-shadow-sm`}>
+                      <div className="w-20 h-[1.5px] bg-gradient-to-r from-transparent via-[#D4AF37] to-[#043927]"></div>
+                      <h1 className={`text-2xl sm:text-3xl font-black tracking-[0.18em] uppercase ${themeCfg.titleText} font-serif drop-shadow-sm`}>
                         {certMode === 'juara' ? 'PIAGAM PENGHARGAAN' : 'SERTIFIKAT APRESIASI'}
                       </h1>
-                      <div className="w-16 h-[1.5px] bg-gradient-to-l from-transparent via-[#D4AF37] to-[#043927]"></div>
+                      <div className="w-20 h-[1.5px] bg-gradient-to-l from-transparent via-[#D4AF37] to-[#043927]"></div>
                     </div>
                     
                     {/* Nomor Surat Resmi Sesuai Format Organisasi */}
