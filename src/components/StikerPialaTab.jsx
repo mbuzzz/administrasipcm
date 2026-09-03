@@ -2,25 +2,26 @@ import React, { useState, useRef } from 'react';
 import { 
   Printer, 
   Download, 
-  Eye, 
   Sparkles, 
-  Layers, 
-  Grid, 
   Scissors, 
   Trophy, 
   Palette, 
   Check, 
-  RotateCcw,
   Maximize2,
-  Minimize2,
   Info,
   HelpCircle,
-  Award
+  Award,
+  FileCode,
+  Loader2,
+  FileText
 } from 'lucide-react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { proposalData } from '../data/proposalData';
 
 export default function StikerPialaTab({ setActiveTab }) {
-  const { identitas, cabangLomba } = proposalData;
+  const { identitas } = proposalData;
+  const sheetRef = useRef(null);
 
   // 3 Pilihan Tema Desain Stiker Piala
   const [selectedTheme, setSelectedTheme] = useState('emerald_gold'); // 'emerald_gold' | 'gold_metal' | 'clean_white'
@@ -28,6 +29,8 @@ export default function StikerPialaTab({ setActiveTab }) {
   const [customNames, setCustomNames] = useState({});
   const [previewModalSticker, setPreviewModalSticker] = useState(null);
   const [zoomLevel, setZoomLevel] = useState(1);
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+  const [downloadSuccessMessage, setDownloadSuccessMessage] = useState('');
 
   // Daftar 12 Stiker Piala (4 Lomba x 3 Juara)
   const stikerList = [
@@ -171,6 +174,100 @@ export default function StikerPialaTab({ setActiveTab }) {
     }));
   };
 
+  // Fitur Langsung Download PDF Ukuran A3 (300 DPI Presisi)
+  const handleDownloadPDF = async () => {
+    if (!sheetRef.current) return;
+    setIsGeneratingPDF(true);
+    setDownloadSuccessMessage('');
+
+    try {
+      // Simpan zoom level saat ini dan kembalikan ke skala 1 untuk rendering akurat
+      const originalTransform = sheetRef.current.style.transform;
+      sheetRef.current.style.transform = 'none';
+
+      // Capture canvas dengan skala 2.5 untuk resolusi ultra-tajam
+      const canvas = await html2canvas(sheetRef.current, {
+        scale: 2.5,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#FFFFFF',
+        logging: false
+      });
+
+      // Kembalikan transformasi zoom
+      sheetRef.current.style.transform = originalTransform;
+
+      // Inisialisasi jsPDF format A3 Landscape (420 mm x 297 mm)
+      const pdf = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a3',
+        compress: true
+      });
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.98);
+      
+      // Ukuran halaman A3: 420mm x 297mm
+      pdf.addImage(imgData, 'JPEG', 0, 0, 420, 297, undefined, 'FAST');
+      pdf.save(`Stiker-Piala-MUHIBBIN-2026-A3-${selectedTheme}.pdf`);
+
+      setDownloadSuccessMessage('File PDF A3 berhasil diunduh dan siap langsung dicetak!');
+      setTimeout(() => setDownloadSuccessMessage(''), 5000);
+    } catch (error) {
+      console.error('Gagal generate PDF:', error);
+      alert('Terjadi kendala saat membuat PDF. Anda juga dapat menggunakan opsi Cetak (Ctrl+P) lalu pilih Save as PDF.');
+    } finally {
+      setIsGeneratingPDF(false);
+    }
+  };
+
+  // Fitur Download Standalone Master Vektor SVG (Ukuran A3 420x297mm)
+  const handleDownloadSVG = () => {
+    if (!sheetRef.current) return;
+    
+    // Ambil seluruh elemen SVG di dalam lembar A3
+    const svgs = sheetRef.current.querySelectorAll('.sticker-item-container svg');
+    if (!svgs.length) return;
+
+    let combinedSvg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 420 297" width="420mm" height="297mm">\n`;
+    combinedSvg += `  <rect width="100%" height="100%" fill="#ffffff" />\n`;
+
+    // 4 Kolom x 3 Baris
+    // Posisi X kolom: 28mm, 122mm, 216mm, 310mm (jarak 70mm + gap 24mm)
+    // Posisi Y baris: 22mm, 110mm, 198mm (jarak 70mm + gap 18mm)
+    const colStarts = [34, 126, 218, 310];
+    const rowStarts = [24, 112, 200];
+
+    svgs.forEach((svgEl, index) => {
+      const col = index % 4;
+      const row = Math.floor(index / 4);
+      const x = colStarts[col];
+      const y = rowStarts[row];
+      const svgInner = svgEl.innerHTML;
+      
+      combinedSvg += `  <g transform="translate(${x}, ${y})">\n`;
+      combinedSvg += `    <svg width="70mm" height="70mm" viewBox="0 0 70 70">\n`;
+      combinedSvg += `      ${svgInner}\n`;
+      combinedSvg += `    </svg>\n`;
+      combinedSvg += `  </g>\n`;
+    });
+
+    combinedSvg += `</svg>`;
+
+    const blob = new Blob([combinedSvg], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Master-Vektor-Stiker-Piala-MUHIBBIN-A3-${selectedTheme}.svg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    setDownloadSuccessMessage('File Vektor SVG A3 berhasil diunduh untuk CorelDraw/Illustrator/Percetakan!');
+    setTimeout(() => setDownloadSuccessMessage(''), 5000);
+  };
+
   // Komponen Vektor SVG Stiker Dudukan Piala (Trapesium: Atas 6.5cm, Bawah 7cm, Tinggi 7cm)
   // ViewBox: 0 0 70 70 (Unit milimeter murni 1:1)
   const renderStickerSVG = (stiker, isLarge = false) => {
@@ -270,7 +367,7 @@ export default function StikerPialaTab({ setActiveTab }) {
             points="2.5,0 67.5,0 70,70 0,70"
             fill="none"
             stroke="#94A3B8"
-            strokeWidth="0.3"
+            strokeWidth="0.35"
             strokeDasharray="1.5,1"
           />
         )}
@@ -283,7 +380,7 @@ export default function StikerPialaTab({ setActiveTab }) {
             fill={`url(#${gradId})`}
           />
 
-          {/* Bingkai Ganda Luar (Outer Border 0.7mm) */}
+          {/* Bingkai Ganda Luar (Outer Border 0.8mm) */}
           <polygon
             points="3.1,0.6 66.9,0.6 69.3,69.4 0.7,69.4"
             fill="none"
@@ -291,7 +388,7 @@ export default function StikerPialaTab({ setActiveTab }) {
             strokeWidth="0.8"
           />
 
-          {/* Bingkai Dalam Elegan (Inner Border 0.3mm) */}
+          {/* Bingkai Dalam Elegan (Inner Border 0.35mm) */}
           <polygon
             points="4.3,2.0 65.7,2.0 67.8,68.0 2.2,68.0"
             fill="none"
@@ -525,12 +622,12 @@ export default function StikerPialaTab({ setActiveTab }) {
 
   return (
     <div className="space-y-6 w-full">
-      {/* Dynamic Print Style untuk Format Ukuran Kertas A3 Landscape */}
+      {/* Dynamic Print Style untuk Format Ukuran Kertas A3 Landscape MURNI (Tanpa Header/Footer) */}
       <style>{`
         @media print {
           @page {
             size: A3 landscape;
-            margin: 6mm 10mm;
+            margin: 0;
           }
           body {
             background: white !important;
@@ -538,28 +635,30 @@ export default function StikerPialaTab({ setActiveTab }) {
             padding: 0 !important;
           }
           .a3-sheet-wrapper {
-            width: 400mm !important;
-            max-width: 400mm !important;
-            height: 285mm !important;
-            max-height: 285mm !important;
-            margin: 0 auto !important;
-            padding: 4mm 6mm !important;
+            width: 420mm !important;
+            max-width: 420mm !important;
+            height: 297mm !important;
+            max-height: 297mm !important;
+            margin: 0 !important;
+            padding: 12mm 15mm !important;
             box-shadow: none !important;
             border: none !important;
             background: white !important;
             display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-between !important;
+            align-items: center !important;
+            justify-content: center !important;
             page-break-after: avoid !important;
             break-after: avoid !important;
+            box-sizing: border-box !important;
           }
           .a3-stickers-grid {
             display: grid !important;
             grid-template-columns: repeat(4, 70mm) !important;
             grid-template-rows: repeat(3, 70mm) !important;
-            gap: 7mm 15mm !important;
+            gap: 12mm 22mm !important;
             justify-content: center !important;
             align-content: center !important;
+            margin: auto !important;
           }
           .sticker-item-container {
             width: 70mm !important;
@@ -573,22 +672,28 @@ export default function StikerPialaTab({ setActiveTab }) {
         @media screen {
           .a3-sheet-wrapper {
             width: 420mm;
+            height: 297mm;
             min-height: 297mm;
+            max-height: 297mm;
             background: #ffffff;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15), 0 3px 10px rgba(0, 0, 0, 0.08);
             box-sizing: border-box;
-            padding: 10mm 14mm;
+            padding: 12mm 15mm;
             border-radius: 4px;
             margin: 1.5rem auto;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
           .a3-stickers-grid {
             display: grid;
             grid-template-columns: repeat(4, 70mm);
             grid-template-rows: repeat(3, 70mm);
-            gap: 7mm 14mm;
+            gap: 12mm 22mm;
             justify-content: center;
             align-content: center;
+            margin: auto;
           }
           .sticker-item-container {
             width: 70mm;
@@ -613,29 +718,67 @@ export default function StikerPialaTab({ setActiveTab }) {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-lg sm:text-xl font-bold text-slate-900">
-                  Modul Cetak Stiker Label Piala (A3)
+                  Modul Cetak & Download Stiker Label Piala (A3)
                 </h1>
                 <span className="bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-emerald-300">
-                  12 Stiker &bull; Ukuran 6.5 x 7 x 7 cm
+                  12 Stiker Murni &bull; 6.5 x 7 x 7 cm
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-slate-500">
-                Format Trapesium Presisi Dudukan Piala (Atas: 6.5 cm, Bawah: 7.0 cm, Tinggi: 7.0 cm) Terlayout Rapi di Kertas A3
+                Format Trapesium Presisi (Atas: 6.5 cm, Bawah: 7.0 cm, Tinggi: 7.0 cm) &bull; Langsung Download PDF Siap Cetak Kertas A3
               </p>
             </div>
           </div>
 
-          {/* Action Buttons */}
+          {/* Action Download & Print Buttons */}
           <div className="flex flex-wrap items-center gap-2.5">
+            {/* Tombol Download Langsung PDF A3 */}
+            <button
+              onClick={handleDownloadPDF}
+              disabled={isGeneratingPDF}
+              className="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-sm px-5 py-2.5 rounded-lg shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 cursor-pointer"
+            >
+              {isGeneratingPDF ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-amber-300" />
+                  <span>Membuat PDF A3...</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4 text-amber-300" />
+                  <span>Download PDF A3 (Langsung)</span>
+                </>
+              )}
+            </button>
+
+            {/* Tombol Download Vektor SVG */}
+            <button
+              onClick={handleDownloadSVG}
+              className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-sm px-4 py-2.5 rounded-lg shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+              title="Download format vektor SVG untuk CorelDraw / Illustrator / Percetakan"
+            >
+              <FileCode className="w-4 h-4 text-amber-200" />
+              <span>Download SVG</span>
+            </button>
+
+            {/* Tombol Print Dialog Browser */}
             <button
               onClick={handlePrint}
-              className="flex items-center gap-2 bg-pm-green hover:bg-emerald-800 text-white font-bold text-sm px-5 py-2.5 rounded-lg shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs sm:text-sm px-3.5 py-2.5 rounded-lg shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
-              <Printer className="w-4 h-4 text-amber-300" />
-              <span>Cetak / Export PDF A3 (Ctrl+P)</span>
+              <Printer className="w-4 h-4 text-slate-300" />
+              <span>Print (Ctrl+P)</span>
             </button>
           </div>
         </div>
+
+        {/* Notifikasi Download Sukses */}
+        {downloadSuccessMessage && (
+          <div className="bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-semibold px-4 py-2.5 rounded-lg flex items-center gap-2 animate-in fade-in duration-200">
+            <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+            <span>{downloadSuccessMessage}</span>
+          </div>
+        )}
 
         {/* Toolbar Settings Bar */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1 items-center">
@@ -698,7 +841,7 @@ export default function StikerPialaTab({ setActiveTab }) {
                 }`}
               >
                 <span>{showCropMarks ? '✓ Garis Potong Aktif (Putus-putus)' : '✕ Tanpa Garis Potong'}</span>
-                <span className="text-[10px] text-slate-400">Klik untuk ganti</span>
+                <span className="text-[10px] text-slate-400">Klik ganti</span>
               </button>
             </div>
           </div>
@@ -707,9 +850,9 @@ export default function StikerPialaTab({ setActiveTab }) {
           <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-xs text-slate-600 flex items-start gap-2">
             <Info className="w-4 h-4 text-pm-green flex-shrink-0 mt-0.5" />
             <div>
-              <p className="font-bold text-slate-800">Petunjuk Cetak Kertas A3:</p>
+              <p className="font-bold text-slate-800">Lembar Cetak Bersih (Tanpa Header):</p>
               <p className="text-[11px] leading-tight text-slate-500">
-                Gunakan <strong>Stiker Kertas Glossy A3 / Vinyl A3</strong>. Pada dialog print browser, pilih <em>Paper size: A3</em>, <em>Layout: Landscape</em>, dan <em>Scale: 100% (Default)</em>.
+                Lembar A3 ini murni hanya berisi 12 stiker trapesium piala tanpa header/footer teks, sehingga 100% siap langsung dipotong & ditempel.
               </p>
             </div>
           </div>
@@ -741,40 +884,26 @@ export default function StikerPialaTab({ setActiveTab }) {
       </div>
 
       {/* ========================================================================= */}
-      {/* LEMBAR KERJA A3 LANDSCAPE (420 mm x 297 mm) */}
+      {/* LEMBAR KERJA A3 LANDSCAPE (420 mm x 297 mm) - MURNI 12 STIKER TANPA HEADER */}
       {/* ========================================================================= */}
       <div 
         className="overflow-x-auto pb-8 flex justify-center"
         style={{ transformOrigin: 'top center' }}
       >
         <div 
+          ref={sheetRef}
+          id="a3-sheet-container"
           className="a3-sheet-wrapper"
           style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'top center' }}
         >
-          {/* Header Lembar A3 (Hanya Petunjuk Dokumen) */}
-          <div className="border-b-2 border-black pb-2 mb-4 flex justify-between items-center text-black">
-            <div>
-              <p className="text-[10pt] font-bold uppercase tracking-widest">
-                LEMBAR STIKER LABEL DUDUKAN PIALA &bull; MUHIBBIN 2026
-              </p>
-              <p className="text-[8pt] text-slate-700">
-                PIMPINAN CABANG PEMUDA MUHAMMADIYAH CLURING &bull; 4 CABANG LOMBA &bull; 12 SET PIALA JUARA
-              </p>
-            </div>
-            <div className="text-right text-[8pt] font-mono">
-              <p className="font-bold">UKURAN STIKER: ATAS 6.5 CM &bull; BAWAH 7.0 CM &bull; TINGGI 7.0 CM</p>
-              <p className="text-slate-600">Skala Cetak: 100% Kertas A3 Landscape (420 x 297 mm)</p>
-            </div>
-          </div>
-
-          {/* Grid Layout 12 Stiker (4 Kolom x 3 Baris) */}
-          <div className="a3-stickers-grid my-auto">
+          {/* Grid Layout Murni 12 Stiker (4 Kolom x 3 Baris) */}
+          <div className="a3-stickers-grid">
             {stikerList.map((stiker) => (
               <div 
                 key={stiker.id} 
                 className="sticker-item-container cursor-pointer group"
                 onClick={() => setPreviewModalSticker(stiker)}
-                title={`Klik untuk lihat detail / ganti nama: ${stiker.cabangNama} - ${stiker.juaraTeks}`}
+                title={`Klik untuk lihat detail / masukkan nama santri: ${stiker.cabangNama} - ${stiker.juaraTeks}`}
               >
                 {/* Render SVG Stiker Trapesium */}
                 {renderStickerSVG(stiker)}
@@ -787,16 +916,6 @@ export default function StikerPialaTab({ setActiveTab }) {
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Footer Lembar A3 (Garis Panduan Potong) */}
-          <div className="border-t border-slate-400 pt-2 mt-4 flex justify-between items-center text-[7.5pt] text-slate-600">
-            <p>
-              &copy; 2026 Panitia Pelaksana MUHIBBIN &bull; PCPM Cluring, Banyuwangi &bull; Dicetak Menggunakan Sistem Proposal & Administrasi Terpadu
-            </p>
-            <p className="font-mono">
-              Potong mengikuti garis tepi trapesium (Sisi Atas 65mm, Bawah 70mm, Tinggi 70mm)
-            </p>
           </div>
         </div>
       </div>
@@ -814,7 +933,7 @@ export default function StikerPialaTab({ setActiveTab }) {
               </div>
               <button
                 onClick={() => setPreviewModalSticker(null)}
-                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold"
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center font-bold cursor-pointer"
               >
                 ✕
               </button>
@@ -858,7 +977,7 @@ export default function StikerPialaTab({ setActiveTab }) {
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setPreviewModalSticker(null)}
-                className="px-4 py-2 bg-pm-green hover:bg-emerald-800 text-white font-bold text-xs rounded-lg shadow"
+                className="px-4 py-2 bg-pm-green hover:bg-emerald-800 text-white font-bold text-xs rounded-lg shadow cursor-pointer"
               >
                 Selesai & Simpan
               </button>
@@ -878,8 +997,8 @@ export default function StikerPialaTab({ setActiveTab }) {
             <p>Gunakan <strong>Stiker Vinyl Glossy A3</strong> atau <strong>Stiker Cromo/Kertas Foto Glossy A3</strong>. Hasil warna akan sangat tajam, tahan gores, dan berkilau mewah pada piala.</p>
           </div>
           <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
-            <p className="font-bold text-slate-800">2. Pengaturan Printer A3:</p>
-            <p>Pilih ukuran kertas <strong>A3</strong>, orientasi <strong>Landscape (Mendatar)</strong>, margin <strong>None / Minimum</strong>, dan pastikan skala cetak <strong>100%</strong> agar ukuran presisi 6.5 x 7 x 7 cm.</p>
+            <p className="font-bold text-slate-800">2. Opsi Unduh & Cetak Langsung:</p>
+            <p>Klik tombol <strong>Download PDF A3</strong> untuk mengunduh dokumen PDF A3 beresolusi tinggi langsung ke perangkat Anda, atau <strong>Download SVG</strong> untuk edit di software percetakan.</p>
           </div>
           <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
             <p className="font-bold text-slate-800">3. Pemotongan & Pemasangan:</p>
