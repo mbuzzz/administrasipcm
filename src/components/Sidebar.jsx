@@ -114,11 +114,18 @@ export default function Sidebar({
       nomor: '11'
     },
     { 
+      id: 'sertifikat', 
+      label: 'E-Sertifikat Juara & Peserta', 
+      sublabel: 'Piagam A4 (No. 1.2/06/2026)', 
+      icon: Award,
+      nomor: '12'
+    },
+    { 
       id: 'cetak_full', 
       label: 'Cetak Proposal Full (A4)', 
       sublabel: 'Dokumen Utuh Siap PDF', 
       icon: Printer,
-      nomor: '12',
+      nomor: '13',
       highlight: true
     },
   ];
