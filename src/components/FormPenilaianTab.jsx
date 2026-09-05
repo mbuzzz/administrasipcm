@@ -149,7 +149,7 @@ export default function FormPenilaianTab({ setActiveTab }) {
                       <td className="w-28 font-bold py-0.5">Nama Dewan Juri</td>
                       <td className="w-3 py-0.5">:</td>
                       <td className="py-0.5 border-b border-dotted border-black w-60">
-                        {lomba.juri.join(' / ')}
+                        &nbsp;
                       </td>
                       <td className="w-24 font-bold py-0.5 pl-4">Tempat / Ruang</td>
                       <td className="w-3 py-0.5">:</td>
